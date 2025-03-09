@@ -31,7 +31,8 @@ require('lazy').setup({
   require 'plugins.lazydev',
   require 'plugins.lspconfig',
   require 'plugins.autoformat',
-  require 'plugins.autocompletion',
+  -- require 'plugins.autocompletion',
+  require 'plugins.autocmp-blink',
   require 'plugins.themes',
   require 'plugins.todo-comments',
   require 'plugins.mini',
@@ -43,6 +44,7 @@ require('lazy').setup({
   require 'plugins.neo-tree',
   require 'plugins.typescript-tools',
   require 'plugins.harpoon',
+  require 'plugins.avante',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

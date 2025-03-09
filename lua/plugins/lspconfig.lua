@@ -13,7 +13,7 @@ return {
     { 'j-hui/fidget.nvim', opts = {} },
 
     -- Allows extra capabilities provided by nvim-cmp
-    'hrsh7th/cmp-nvim-lsp',
+    -- 'hrsh7th/cmp-nvim-lsp',
   },
   config = function()
     -- Brief aside: **What is LSP?**
@@ -86,6 +86,8 @@ return {
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
         map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+
+        map('<leader>ld', '<cmd>lua vim.diagnostic.open_float({ "line" })<CR>', 'Get current line diagnostics')
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
@@ -183,7 +185,9 @@ return {
     --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
     --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    -- local nvim_cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local blink_cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, blink_cmp_capabilities)
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -258,6 +262,9 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      'black', -- Format python code
+      'isort', -- Sort python imports
+      'prettier', -- format javascript
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
