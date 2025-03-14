@@ -45,6 +45,7 @@ require('lazy').setup({
   require 'plugins.typescript-tools',
   require 'plugins.harpoon',
   require 'plugins.avante',
+  require 'plugins.dbtpal',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
