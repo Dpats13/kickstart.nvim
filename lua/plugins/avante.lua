@@ -6,7 +6,8 @@ return {
     -- add any opts here
     -- for example
     provider = 'claude',
-    openai = {
+    auto_suggestion_provider = 'claude',
+    claude = {
       endpoint = 'https://api.anthropic.com',
       model = 'claude-3-5-sonnet-20241022', -- your desired model (or use gpt-4o, etc.)
       timeout = 30000, -- timeout in milliseconds
@@ -15,6 +16,11 @@ return {
       -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
     },
     mappings = { submit = { normal = '<C-CR>' } },
+    hints = { enabled = true },
+    suggestion = {
+      debounce = 600,
+      throttle = 600,
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = 'make',
@@ -49,7 +55,7 @@ return {
       },
     },
     {
-      -- Make sure to set this up properly if you have lazy=true
+      -- Ensure markdown renderer is loaded when needed
       'MeanderingProgrammer/render-markdown.nvim',
       opts = {
         file_types = { 'markdown', 'Avante' },

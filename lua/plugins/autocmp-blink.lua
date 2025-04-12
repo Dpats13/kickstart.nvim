@@ -13,6 +13,10 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    enabled = function()
+      return not vim.tbl_contains({ 'text', 'markdown', 'Avante' }, vim.bo.filetype)
+    end,
+
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
     -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)
     -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
