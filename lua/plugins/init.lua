@@ -40,7 +40,7 @@ require('lazy').setup({
   -- require 'plugins.debug',
   -- require 'plugins.indent_line',
   -- require 'plugins.lint',
-  -- require 'plugins.autopairs',
+  require 'plugins.autopairs',
   require 'plugins.neo-tree',
   require 'plugins.typescript-tools',
   require 'plugins.harpoon',
@@ -48,6 +48,7 @@ require('lazy').setup({
   require 'plugins.dbtpal',
   require 'plugins.neotest',
   require 'plugins.lazygit',
+  require 'plugins.nvim-notify',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
