@@ -19,6 +19,8 @@ return { -- Highlight, edit, and navigate code
       'vue',
       'javascript',
       'typescript',
+      'hcl',
+      'terraform',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,

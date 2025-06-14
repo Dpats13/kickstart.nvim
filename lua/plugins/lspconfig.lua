@@ -212,24 +212,69 @@ return {
       -- ts_ls = {},
       --
 
-      volar = {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      ts_ls = {
         init_options = {
-          vue = {
-            -- disable hybrid mode
-            hybridMode = false,
-          },
-        },
-      },
-      basedpyright = {
-        settings = {
-          basedpyright = {
-            analysis = {
-              typeCheckingMode = 'basic',
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = '/path/to/@vue/language-server',
+              languages = { 'vue' },
             },
           },
         },
       },
+
+      volar = {
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        init_options = {
+          vue = {
+            hybridMode = false,
+          },
+        },
+      },
+
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'openFilesOnly',
+              typeCheckingMode = 'basic', -- 'off', 'basic', 'strict'
+            },
+          },
+        },
+      },
+      terraformls = {
+        filetypes = { 'hcl', 'terraform', 'tf' },
+        init_options = {
+          format = {
+            enable = true,
+            options = {
+              tab_size = 2,
+              use_tabs = false,
+              align_blocks = true,
+              align_ternary_ops = true,
+              align_arguments = true,
+              align_conditions = true,
+              align_assignments = true,
+            },
+          },
+        },
+      },
+
+      -- basedpyright = {
+      --   settings = {
+      --     basedpyright = {
+      --       analysis = {
+      --         autoSearchPaths = true,
+      --         useLibraryCodeForTypes = true,
+      --         diagnosticMode = 'openFilesOnly',
+      --         typeCheckingMode = 'basic', -- 'off', 'basic', 'strict'
+      --       },
+      --     },
+      --   },
+      -- },
       lua_ls = {
         -- cmd = { ... },
         -- filetypes = { ... },
