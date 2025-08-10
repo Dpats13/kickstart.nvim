@@ -7,6 +7,7 @@ return { -- Highlight, edit, and navigate code
     ensure_installed = {
       'bash',
       'c',
+      'css',
       'diff',
       'html',
       'lua',
@@ -21,6 +22,7 @@ return { -- Highlight, edit, and navigate code
       'typescript',
       'hcl',
       'terraform',
+      'tsx',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,

@@ -86,9 +86,10 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Terminal settings
-vim.api.nvim_set_keymap('n', '<leader>tt', '<cmd>lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ttb', '<cmd>lua ToggleTerminalBottom()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ttr', '<cmd>lua ToggleTerminalRight()<CR>', { noremap = true, silent = true })
 
-function ToggleTerminal()
+function ToggleTerminalBottom()
   local bufnr = vim.fn.bufnr 'Terminal'
   if bufnr ~= -1 then
     -- If the terminal buffer exists, toggle its visibility
@@ -102,6 +103,23 @@ function ToggleTerminal()
 
   -- Open terminal at the bottom with small height
   vim.cmd 'botright 10split | term'
+  vim.cmd 'startinsert'
+end
+
+function ToggleTerminalRight()
+  local bufnr = vim.fn.bufnr 'Terminal'
+  if bufnr ~= -1 then
+    -- If the terminal buffer exists, toggle its visibility
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if vim.api.nvim_win_get_buf(win) == bufnr then
+        vim.api.nvim_win_close(win, true)
+        return
+      end
+    end
+  end
+
+  -- Open terminal on the right side with a width of 80 columns
+  vim.cmd 'vertical rightbelow 80vsplit | term'
   vim.cmd 'startinsert'
 end
 
