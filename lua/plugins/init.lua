@@ -49,6 +49,7 @@ require('lazy').setup({
   require 'plugins.neotest',
   require 'plugins.lazygit',
   require 'plugins.nvim-notify',
+  require 'plugins.felippes_di_magic',
   -- require 'plugins.copilot',
 }, {
   ui = {

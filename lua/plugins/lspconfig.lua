@@ -329,5 +329,38 @@ return {
         end,
       },
     }
+
+    -- Setup DI LSP
+    di_lsp_init = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local lspconfig = require 'lspconfig'
+      local configs = require 'lspconfig.configs'
+
+      if not configs.di_lsp then
+        configs.di_lsp = {
+          default_config = {
+            root_dir = lspconfig.util.root_pattern 'pyproject.toml',
+            filetypes = { 'python' },
+          },
+        }
+      end
+
+      lspconfig.di_lsp.setup {
+        on_attach = function(client, bufnr) end,
+        capabilities = capabilities,
+        flags = {
+          debounce_text_changes = 150,
+          allow_incremental_sync = true,
+        },
+        on_init = function(client)
+          client.config.settings.diagnosticMode = 'openFilesOnly'
+          client.config.settings.useLibraryCodeForTypes = true
+          client.config.settings.autoSearchPaths = false
+          client.config.settings.autoImportCompletions = true
+          return true
+        end,
+      }
+    end
+    di_lsp_init()
   end,
 }
