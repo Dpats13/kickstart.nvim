@@ -60,7 +60,7 @@ return {
           -- Use pytest as the test runner
           runner = 'pytest',
           -- Additional pytest arguments can be specified here
-          args = { '--verbose' },
+          args = { '--verbose', '-s' },
         },
       },
       -- Configure output window
