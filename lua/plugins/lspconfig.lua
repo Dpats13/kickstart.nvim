@@ -265,6 +265,14 @@ return {
         },
       },
 
+      mdx_analyzer = {
+        init_options = {
+          typescript = {
+            tsdk = '/usr/local/lib/node_modules/typescript/lib',
+          },
+        },
+      },
+
       -- basedpyright = {
       --   settings = {
       --     basedpyright = {
