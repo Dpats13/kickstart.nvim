@@ -41,6 +41,7 @@ return {
       javascript = { 'prettier' },
       vue = { 'prettier' },
       html = { 'prettier' },
+      json = { 'prettier' },
     },
   },
 }
