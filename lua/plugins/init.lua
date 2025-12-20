@@ -52,6 +52,7 @@ require('lazy').setup({
   require 'plugins.felippes_di_magic',
   -- require 'plugins.copilot',
   require 'plugins.mdx-syntax-highlighting',
+  require 'plugins.image',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
