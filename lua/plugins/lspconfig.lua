@@ -226,27 +226,17 @@ return {
 
       cssls = {},
 
-      volar = {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-        init_options = {
-          vue = {
-            hybridMode = false,
-          },
-        },
-      },
+      -- volar = {
+      --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      --   init_options = {
+      --     vue = {
+      --       hybridMode = false,
+      --     },
+      --   },
+      -- },
 
-      pyright = {
-        settings = {
-          python = {
-            analysis = {
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-              diagnosticMode = 'openFilesOnly',
-              typeCheckingMode = 'basic', -- 'off', 'basic', 'strict'
-            },
-          },
-        },
-      },
+      ty = {},
+
       terraformls = {
         filetypes = { 'hcl', 'terraform', 'tf' },
         init_options = {
@@ -273,18 +263,6 @@ return {
         },
       },
 
-      -- basedpyright = {
-      --   settings = {
-      --     basedpyright = {
-      --       analysis = {
-      --         autoSearchPaths = true,
-      --         useLibraryCodeForTypes = true,
-      --         diagnosticMode = 'openFilesOnly',
-      --         typeCheckingMode = 'basic', -- 'off', 'basic', 'strict'
-      --       },
-      --     },
-      --   },
-      -- },
       lua_ls = {
         -- cmd = { ... },
         -- filetypes = { ... },
@@ -323,52 +301,49 @@ return {
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+    -- Register each server config with Neovim 0.11's native vim.lsp.config
+    for server_name, config in pairs(servers) do
+      config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+      vim.lsp.config(server_name, config)
+    end
+
+    -- mason-lspconfig v2: automatic_enable calls vim.lsp.enable() for installed servers
     require('mason-lspconfig').setup {
-      ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+      ensure_installed = {},
       automatic_installation = false,
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
-        end,
-      },
     }
 
     -- Setup DI LSP
-    di_lsp_init = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local lspconfig = require 'lspconfig'
-      local configs = require 'lspconfig.configs'
-
-      if not configs.di_lsp then
-        configs.di_lsp = {
-          default_config = {
-            root_dir = lspconfig.util.root_pattern 'pyproject.toml',
-            filetypes = { 'python' },
-          },
-        }
-      end
-
-      lspconfig.di_lsp.setup {
-        on_attach = function(client, bufnr) end,
-        capabilities = capabilities,
-        flags = {
-          debounce_text_changes = 150,
-          allow_incremental_sync = true,
-        },
-        on_init = function(client)
-          client.config.settings.diagnosticMode = 'openFilesOnly'
-          client.config.settings.useLibraryCodeForTypes = true
-          client.config.settings.autoSearchPaths = false
-          client.config.settings.autoImportCompletions = true
-          return true
-        end,
-      }
-    end
-    di_lsp_init()
+    --   di_lsp_init = function()
+    --     local capabilities = vim.lsp.protocol.make_client_capabilities()
+    --     local lspconfig = require 'lspconfig'
+    --     local configs = require 'lspconfig.configs'
+    --
+    --     if not configs.di_lsp then
+    --       configs.di_lsp = {
+    --         default_config = {
+    --           root_dir = lspconfig.util.root_pattern 'pyproject.toml',
+    --           filetypes = { 'python' },
+    --         },
+    --       }
+    --     end
+    --
+    --     lspconfig.di_lsp.setup {
+    --       on_attach = function(client, bufnr) end,
+    --       capabilities = capabilities,
+    --       flags = {
+    --         debounce_text_changes = 150,
+    --         allow_incremental_sync = true,
+    --       },
+    --       on_init = function(client)
+    --         client.config.settings.diagnosticMode = 'openFilesOnly'
+    --         client.config.settings.useLibraryCodeForTypes = true
+    --         client.config.settings.autoSearchPaths = false
+    --         client.config.settings.autoImportCompletions = true
+    --         return true
+    --       end,
+    --     }
+    --   end
+    --   di_lsp_init()
   end,
 }
