@@ -6,8 +6,7 @@ return {
       processor = 'magick_cli', -- Use the ImageMagick command line interface
       integrations = {
         markdown = {
-          enabled = true, -- Enable image rendering in Markdown files
-          -- Other markdown settings...
+          enabled = false, -- Disabled: triggers nvim-treesitter crash on Neovim 0.12
         },
         -- other integrations like neorg, typst can be enabled here
       },
