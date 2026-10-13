@@ -38,5 +38,7 @@ end
 -- Set up the keybinding
 vim.keymap.set('n', '<leader>cs', ColorSchemePicker, { desc = 'Pick Color Scheme' })
 
--- Set initial colorscheme
-setColorScheme 'rose-pine'
+-- Set initial colorscheme (skip on Omarchy: aether is loaded via omarchy-theme plugin)
+if not vim.env.OMARCHY_PATH then
+  setColorScheme 'rose-pine'
+end
