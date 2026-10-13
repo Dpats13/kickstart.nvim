@@ -5,6 +5,9 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Omarchy OS remote clipboard: OSC 52 for SSH/tmux sessions, Wayland sync
+require("config.remote_clipboard").setup()
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -68,6 +71,9 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Hide tabline (no file tabs at top)
+vim.o.showtabline = 0
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
